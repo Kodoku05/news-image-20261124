@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Draw the front page for THE WORLD TODAY — Tuesday 24 November 2026.
 
-Renders 50 verified stories (4 leads + 46 grid items) as a 1024x1024
+Renders 50 stories (4 leads + 46 grid items) as a 1024x1024
 newspaper front page and saves it as entry.png next to this script.
+v2 (24 Nov evening): the four v1 leads were wrongly dated (Alcaraz 22 Nov,
+COP31 22 Nov, Kyiv barrage 23 Nov, Iran vow 23 Nov) — all four are replaced
+by verified Tuesday 24 November stories, and the wrongly dated stories are
+listed in the DATE CHECK box with their true dates. The week timeline is an
+explicit week recap, not a claim that those events happened on 24 Nov.
 Deterministic: fixed text, no timestamps, no randomness, no network.
 Only the Python standard library plus Pillow, which is used at BUILD
 time only — the graded program (main.ts) merely copies entry.png.
@@ -26,48 +31,51 @@ GOLD = (198, 158, 60)
 TEAL = (18, 92, 96)
 
 LEADS = [
-    ("ABU DHABI TALKS OPEN TODAY",
-     "US-brokered Russia-Ukraine talks open in Abu Dhabi on Tuesday to "
-     "revive stalled diplomacy — as Zelenskyy accuses Moscow of "
-     "escalating strikes on the power grid to pressure Kyiv at the table.",
-     "Al Jazeera", "Middle East", "Diplomacy"),
-    ("IRAN: \u2018USE EVERY MEANS\u2019 TO BREAK BLOCKADE",
-     "Tehran vows it will use all available means against the US naval "
-     "blockade as 14 tankers mass at Kharg Island; Trump dares them to "
-     "sail: \u201cThey\u2019ll all be at the bottom of the sea.\u201d",
-     "Reuters / Fox News", "Middle East", "War"),
-    ("KYIV GRID HIT AGAIN \u2014 500,000 IN THE DARK",
-     "Russian barrage hits 28 substations; more than half a million lose "
-     "power, heat and water; a 21-year-old woman killed in Kyiv; "
-     "Zelenskyy says partners gave no early warning.",
-     "AP / wire", "Europe", "War"),
-    ("ALCARAZ WINS MAIDEN ATP FINALS",
-     "Beats world No. 1 Zverev 6-2, 7-6(7) in Turin \u2014 one of only "
-     "four men to hold all four Slams plus the ATP Finals title.",
-     "Reuters", "Europe", "Sport"),
+    ("ABU DHABI TALKS END \u2014 NO BREAKTHROUGH",
+     "US mediators Kushner and Witkoff wrap two days of trilateral "
+     "talks and head to Moscow, then Dublin; Russia renews territorial "
+     "demands as 160+ missiles and drones hit Ukraine\u2019s energy grid "
+     "overnight, blacking out Dnipropetrovsk and Kharkiv.",
+     "wire / ANSA", "Middle East", "Diplomacy"),
+    ("NETANYAHU URGES TRUMP: HIT IRAN AGAIN",
+     "Israel\u2019s PM presses Trump to authorise fresh strikes, saying "
+     "a new campaign could topple Tehran; Iran rules out talks until "
+     "Washington meets seven conditions, vowing \u2018all available "
+     "means\u2019 against the blockade.",
+     "Kan / TBS", "Middle East", "War"),
+    ("ZAPORIZHZHIA STRUCK OVERNIGHT \u2014 2 DEAD, 22 HURT",
+     "Russian strike hits the frontline city in the early hours of "
+     "Tuesday; rescuers pull survivors from rubble as Poland scrambles "
+     "jets after a Russian drone briefly enters its airspace.",
+     "Reuters", "Europe", "War"),
+    ("GUKESH\u2013SINDAROV: GAME 1 TODAY IN GENEVA",
+     "The youngest world title match in history opens at 15:00 CET: "
+     "champion Gukesh, 20, defends against Sindarov, 20, over 14 games "
+     "for a $2.5M prize fund.",
+     "FIDE", "Europe", "Sport"),
 ]
 
 GRID = [
-    ("COP31 COLLAPSED \u2014 NO DEAL IN ANTALYA",
-     "EU and 90+ nations rejected a draft that never mentioned fossil fuels; longest COP on record.",
-     "Reuters", "Europe", "Climate"),
-    ("15 KILLED IN OVERNIGHT STRIKES ON KYIV REGION",
-     "Dymer flats collapse kills 10; Zelenskyy demands the Patriots partners already paid for.",
-     "Al Jazeera", "Europe", "War"),
-    ("UKRAINE FIRES 1,000+ DRONES AT RUSSIA",
-     "Largest aerial attack of the war; oil terminal and depot ablaze in St Petersburg.",
+    ("HUANG IS BACK \u2014 NASDAQ SOARS 6.5%",
+     "Nvidia board reinstates Jensen Huang after Trump intervenes; Nasdaq jumps 6.51%, S&P +4.73%; Seoul +6% and Nikkei +3.91% on Tuesday.",
+     "Reuters", "North America", "Markets"),
+    ("POLAND SCRAMBLES JETS AS DRONE CROSSES IN",
+     "Polish air defences activated as a Russian drone briefly enters Poland during Ukraine strikes; NATO to send AWACS to Poland.",
      "wire", "Europe", "War"),
-    ("RUSSIAN WARSHIP \u2018SUNK\u2019 OFF LIBYA",
-     "Corvette believed to be the Merkury destroyed at Benghazi port; Ukraine claims the attack.",
-     "Naval News", "Africa", "War"),
+    ("KERCH BRIDGE HIT AGAIN IN UKRAINIAN STRIKES",
+     "Further damage to road and rail spans as Moscow reports intercepting 600 drones; movement across the strait restricted.",
+     "wire", "Europe", "War"),
+    ("GERMANY FIRST TO GET UKRAINE\u2019S DELTA SYSTEM",
+     "Berlin signs letter of intent in Berlin; preliminary deal also reached on extra interceptor missiles for Kyiv.",
+     "Kyiv Independent", "Europe", "Diplomacy"),
     ("460,000+ DEATHS LINKED TO RUSSIA\u2019S WAR",
      "Guardian analysis of death certificates; war the leading killer of Russian men under 65 in 2025.",
      "Guardian", "Europe", "War"),
-    ("ZELENSKYY: PUTIN IS \u2018A KILLER\u2019",
-     "Tells CNN as a strike on Kryvyi Rih kills a boy, 7, and a paramedic, 20.",
-     "wire", "Europe", "War"),
-    ("RUSSIAN SHIP STILL BURNING OFF FINLAND",
-     "Sparta II ablaze in the Gulf of Finland after an attack; drifts with the current.",
+    ("KREMLIN: EUROPE ADDS \u2018NO VALUE\u2019 AT TABLE",
+     "Peskov says Moscow sees no added value in Europeans joining the talks; no date set for the next Abu Dhabi round.",
+     "wire", "Europe", "Diplomacy"),
+    ("SPARTA II REACHES ST PETERSBURG UNDER TOW",
+     "Russian cargo ship hit by drones arrives in port after being towed across the Baltic.",
      "Reuters", "Europe", "War"),
     ("INDONESIA FACTORY FIRE: SEARCH RESUMES TODAY",
      "24 killed, 29 still missing at the Java candy factory.",
@@ -87,21 +95,21 @@ GRID = [
     ("US SHUTDOWN LOOMS 11 DEC",
      "Partial shutdown unless Congress agrees funding; Iran war and Pentagon request at issue.",
      "wire", "North America", "Politics"),
-    ("DEMOCRATS WIN 258 HOUSE SEATS",
-     "Largest majority since 1992; Hubbard beats Foxx in North Carolina.",
-     "wire", "North America", "Politics"),
-    ("VERSTAPPEN WINS WILD VEGAS GP",
-     "35 lead changes under the lights; beats Norris by 0.639s, Piastri third.",
-     "Formula1/ESPN", "Europe", "Sport"),
-    ("INDIA VS NZ TEST ENDS IN DRAW",
-     "Wellington; India posted a record 720/9 at the Basin Reserve.",
-     "wire", "Oceania", "Sport"),
-    ("GUKESH DEFENDS CHESS CROWN FROM TODAY",
-     "Vs Sindarov in Geneva, 14 games; both 20 \u2014 the youngest title match ever.",
-     "FIDE", "Europe", "Sport"),
-    ("BEPICOLOMBO ENTERS MERCURY ORBIT",
-     "ESA/JAXA probe in orbit Saturday, though operations did not go quite as planned.",
-     "ESA", "Europe", "Space"),
+    ("CONGO BANS COBALT EXPORTS TO PROP UP PRICES",
+     "Outright export ban takes effect at month\u2019s end as collapsing prices squeeze the world\u2019s top producer.",
+     "wire", "Africa", "Markets"),
+    ("SOLOMON ISLANDS DITCH CHINA SECURITY PACT",
+     "Honiara tells Beijing it will not renew the 2022 pact when it expires in April; treaty with Australia to be signed Wednesday.",
+     "ABC / SMH", "Oceania", "Diplomacy"),
+    ("SEOUL STOCKS JUMP 6% AS HUANG RETURNS",
+     "Korean shares rebound more than 6% on Tuesday; Nikkei up 3.91% on the Nvidia reinstatement rally.",
+     "wire", "East Asia", "Markets"),
+    ("BUS-TRUCK CRASH KILLS 11 IN UAE",
+     "Collision in Ras Al Khaimah, officials say.",
+     "Reuters", "Middle East", "Disaster"),
+    ("SHENZHOU-24 TO FLY FIRST FOREIGN ASTRONAUT",
+     "China opens Tiangong station to Pakistani astronaut Zeeshan Ali on the Shenzhou-24 mission.",
+     "Straits Times", "East Asia", "Space"),
     ("MILEY CYRUS MARRIES MAXX MORANDO",
      "California ceremony.",
      "wire", "North America", "Culture"),
@@ -111,27 +119,27 @@ GRID = [
     ("3 KILLED AT OHIO BABY SHOWER",
      "Shooting; one man in custody.",
      "wire", "North America", "Crime"),
-    ("FBI PROBES BREACH OF CRIME DATABASE",
-     "Trump confirms the hack in a Saturday TV interview.",
-     "CNN", "North America", "Crime"),
-    ("NVIDIA CHIP-DIVERSION ROW DEEPENS",
-     "Alice Huang linked to a secret network sending AI chips to China; Bessent demands answers.",
-     "wire", "East Asia", "Technology"),
-    ("EISENKOT: SETTLER ARSON IS \u2018JEWISH TERRORISM\u2019",
-     "As Netanyahu stays silent; coalition talks fail a second round.",
-     "wire", "Middle East", "Politics"),
-    ("GAZA\u2019S DIABETIC CHILDREN LACK INSULIN",
-     "Struggle for life-saving medicine amid the siege.",
-     "wire", "Middle East", "Health"),
-    ("US ARMY TO BLAST EXPLOSIVES IN IOWA TODAY",
-     "Five tonnes by 24 Nov despite a court-ordered pause.",
+    ("US PROBES IRAN OVER CYBERATTACKS ON 50 SHIPS",
+     "Washington investigates a wave of cyberattacks and bomb threats on tankers and energy vessels, Haaretz reports.",
+     "Haaretz", "Middle East", "Technology"),
+    ("EBOLA TEAMS TRAPPED BY FIGHTING IN CONGO",
+     "Heavy fighting near a hospital in Ituri traps Ebola responders, who take cover for more than 24 hours.",
+     "UN News / WHO", "Africa", "Health"),
+    ("ISRAELI STRIKES KILL 6 IN GAZA ON TUESDAY",
+     "Airstrikes hit a police post in Khan Younis and near the Netzarim corridor; two of the dead were police officers.",
+     "Reuters", "Middle East", "War"),
+    ("IOWA BLAST POSTPONED TO WEDNESDAY",
+     "Controlled detonation of degraded explosives delayed after court proceedings; White House: no action without court approval.",
      "wire", "North America", "Politics"),
-    ("TANKER INCIDENT EAST OF HORMUZ",
-     "UKMTO reports amid Iranian threats to break the US blockade.",
-     "UKMTO", "Middle East", "Energy"),
-    ("TWO TANKERS HIT IN HORMUZ",
-     "UKMTO: projectiles strike vessels leaving the Gulf.",
-     "UKMTO", "Middle East", "Energy"),
+    ("THREE SHIPS HIT MINES IN HORMUZ",
+     "Vessels catch fire after striking mines as the US\u2013Iran standoff chokes the strait.",
+     "wire", "Middle East", "Energy"),
+    ("IRAQ PM ORDERS TAKEOVER OF KURDISH OILFIELDS",
+     "Federal ministry to manage fields in Diyala, Kirkuk, Salahuddin and Nineveh after a smuggling probe.",
+     "Reuters", "Middle East", "Energy"),
+    ("CANADA AND QATAR TO SIGN INVESTMENT PACT",
+     "Deal to be signed on Tuesday, a source tells Reuters.",
+     "Reuters", "North America", "Diplomacy"),
     ("WASHINGTON GOVERNOR: ICE \u2018OUT OF CONTROL\u2019",
      "After two people arrested at the airport.",
      "wire", "North America", "Politics"),
@@ -153,20 +161,20 @@ GRID = [
     ("BRITON SWIMS STRAIT OF HORMUZ",
      "To highlight the environmental cost of the war.",
      "wire", "Middle East", "Sport"),
-    ("BRENT HOLDS $92.00",
-     "Monday close; Bitcoin below $58,000, a seventh straight weekly loss.",
+    ("BRENT SLIDES TO $86.70 ON TUESDAY",
+     "Crude down 2.99% as equities rally; gold $3,620.40, down 0.85%.",
      "market data", "Middle East", "Markets"),
-    ("NEPAL PM MEETS MODI IN DELHI",
-     "Balendra Shah on a state visit, 22\u201323 Nov; talks held Monday.",
-     "wire", "South Asia", "Diplomacy"),
+    ("5.3 QUAKE HITS NEPAL\u2019S KOSHI PROVINCE",
+     "Magnitude 5.3 tremor strikes near the Chinese border, EMSC says.",
+     "EMSC", "South Asia", "Disaster"),
     ("S. KOREA EDUCATION MINISTER QUITS",
      "Resigns amid an AI cheating scandal.",
      "wire", "East Asia", "Politics"),
     ("LISBON MARCHES ON LIVING COSTS",
      "Thousands protest as prices fuel anger.",
      "wire", "Europe", "Politics"),
-    ("SAUDI COALITION DOWNS HOUTHI MISSILE",
-     "Intercepted in the western region after a launch towards Riyadh.",
+    ("HOUTHIS: DOZENS DEAD IN SAUDI AIRSTRIKES",
+     "Yemen\u2019s Houthis report heavy casualties as Saudi strikes continue.",
      "wire", "Middle East", "War"),
     ("MYANMAR SLAMS ASEAN DECISION",
      "Army-backed govt calls it \u2018unfair and imbalanced\u2019.",
@@ -183,9 +191,9 @@ GRID = [
     ("9 PILGRIMS KILLED IN RAJASTHAN CRASH",
      "Vehicle rams a truck in Kota.",
      "wire", "South Asia", "Disaster"),
-    ("70% OF AUSSIE MPS SAY POLITICS HARMED MENTAL HEALTH",
-     "Landmark study out in Parliament on Monday.",
-     "wire", "Oceania", "Politics"),
+    ("S. KOREA TOUGHENS EXAMS AFTER AI CHEATING",
+     "New rules for school exams after a smart-device cheating scandal.",
+     "Reuters", "East Asia", "Politics"),
 ]
 
 TIMELINE = [
@@ -195,25 +203,31 @@ TIMELINE = [
     ("SUN 22 NOV EVE", "Democrats hit 258"),
     ("MON 23 NOV AM", "Kyiv grid barrage"),
     ("MON 23 NOV", "Iran vows \u2018every means\u2019"),
-    ("TUE 24 NOV", "Abu Dhabi talks open"),
+    ("TUE 24 NOV", "Abu Dhabi talks end, no deal"),
     ("TUE 24 NOV", "Gukesh\u2013Sindarov begins"),
 ]
 
 DATE_CHECK = [
-    ("KERCH BRIDGE SPAN COLLAPSES", "17 Nov"),
-    ("ISRAEL ELECTS NEW SPEAKER", "17 Nov"),
+    ("ALCARAZ ATP FINALS", "22 Nov"),
+    ("COP31 COLLAPSES", "22 Nov"),
+    ("KYIV GRID BARRAGE", "23 Nov"),
+    ("IRAN \u2018EVERY MEANS\u2019", "23 Nov"),
+    ("VERSTAPPEN VEGAS GP", "22 Nov"),
+    ("DEMOCRATS 258 SEATS", "22 Nov"),
+    ("KERCH BRIDGE", "17 Nov"),
+    ("ISRAEL NEW SPEAKER", "17 Nov"),
     ("WAYMO FREEWAY BAN", "18 Nov"),
-    ("ICJ: MYANMAR GENOCIDE", "19 Nov"),
-    ("FIONA THE HIPPO DIES", "19 Nov"),
+    ("ICJ MYANMAR GENOCIDE", "19 Nov"),
+    ("FIONA THE HIPPO", "19 Nov"),
     ("PERU 6.7 QUAKE", "21 Nov"),
-    ("\u2018CHAPO ISIDRO\u2019 ARRESTED", "21 Nov"),
+    ("\u2018CHAPO ISIDRO\u2019", "21 Nov"),
 ]
 
 # (label, lon, lat) — rough positions for the dotted world map pins
 PINS = [
     ("ABU DHABI", 54, 24), ("KHARG IS.", 50, 29),
-    ("KYIV", 30, 50), ("ANTALYA", 30, 36),
-    ("TURIN", 7, 45), ("GENEVA", 6, 46),
+    ("KYIV", 30, 50), ("ZAPORIZHZHIA", 35, 47),
+    ("SEOUL", 127, 37), ("GENEVA", 6, 46),
     ("WASHINGTON", -77, 38), ("DELHI", 77, 28),
     ("JAKARTA", 106, -6), ("KHARTOUM", 32, 15),
     ("LONDON", 0, 51), ("BENGHAZI", 20, 32),
@@ -307,6 +321,19 @@ def draw_tennis(draw, x, y, r):
              width=3)
 
 
+def draw_chess_king(draw, x, y, r):
+    """A chess king: cross on top, rounded body, flat base."""
+    draw.rectangle([x - 3, y - r, x + 3, y - r + 12], fill=INK)
+    draw.rectangle([x - 8, y - r + 4, x + 8, y - r + 10], fill=INK)
+    draw.ellipse([x - r * 0.55, y - r + 10, x + r * 0.55, y - r + 22],
+                 fill=INK)
+    draw.polygon([(x - r * 0.75, y + r * 0.55), (x + r * 0.75, y + r * 0.55),
+                  (x + r * 0.45, y - r * 0.1), (x - r * 0.45, y - r * 0.1)],
+                 fill=INK)
+    draw.rectangle([x - r, y + r * 0.55, x + r, y + r], fill=INK)
+    draw.rectangle([x - r - 3, y + r * 0.85, x + r + 3, y + r], fill=GOLD)
+
+
 def draw_table_flags(draw, x, y, w, h):
     """Diplomacy scene: a negotiation table, two flags, a globe."""
     draw.rectangle([x, y + h * 0.62, x + w, y + h * 0.70], fill=(122, 82, 42))
@@ -373,7 +400,8 @@ def build():
     # ---------- lead 1 ----------
     y0 = 124
     d.text((16, y0), "LEAD STORY", font=font(True, 11), fill=RED)
-    d.text((16, y0 + 14), LEADS[0][0], font=font(True, 34), fill=INK)
+    hs = fit_one_line(d, LEADS[0][0], True, 34, 620)
+    d.text((16, y0 + 14), LEADS[0][0], font=font(True, hs), fill=INK)
     deck1 = wrap(d, LEADS[0][1], False, 17, 620)
     yy = y0 + 56
     for line in deck1[:3]:
@@ -408,9 +436,10 @@ def build():
     d.rectangle([16, 398, 22, 440], fill=RED)
     d.text((32, 400), "SPORT  \u2014  " + LEADS[3][0], font=font(True, 24),
            fill=INK)
-    d.text((32, 426), LEADS[3][1] + "  [" + LEADS[3][2] + "]",
+    d.text((32, 426), trunc(d, LEADS[3][1] + "  [" + LEADS[3][2] + "]",
+                            False, 14, 900),
            font=font(False, 14), fill=INK)
-    draw_tennis(d, 968, 419, 19)
+    draw_chess_king(d, 968, 419, 19)
     rule(d, 16, 446, W - 16)
 
     # ---------- explainer ----------
@@ -421,8 +450,8 @@ def build():
     expl = ("The US\u2013Iran war is in its ninth month: a US naval blockade "
             "on Iranian ports since 13 April, tanker attacks in the Strait "
             "of Hormuz, strikes on Qeshm Island, Bahrain and Kuwait \u2014 "
-            "25+ merchant ships hit near the strait in seven days, Brent "
-            "crude holding $92.00. [Reuters]")
+            "three ships hit mines in the strait, Brent crude sliding to "
+            "$86.70 on Tuesday. [Reuters]")
     lines = wrap(d, expl, False, 13, W - 52)
     yy = 474
     for line in lines[:2]:
@@ -503,17 +532,17 @@ def build():
     d.text((16, 980), "DATE CHECK \u2014 LEFT OUT AS OLDER NEWS",
            font=font(True, 11), fill=RED)
     dc1 = "  \u00b7  ".join("%s \u2014 %s" % (t, dt)
-                           for t, dt in DATE_CHECK[:4])
+                           for t, dt in DATE_CHECK[:6])
     dc2 = "  \u00b7  ".join("%s \u2014 %s" % (t, dt)
-                           for t, dt in DATE_CHECK[4:])
-    d.text((16, 993), dc1, font=font(False, 10), fill=(70, 70, 68))
-    d.text((16, 1004), dc2, font=font(False, 10), fill=(70, 70, 68))
+                           for t, dt in DATE_CHECK[6:])
+    d.text((16, 993), dc1, font=font(False, 9), fill=(70, 70, 68))
+    d.text((16, 1004), dc2, font=font(False, 9), fill=(70, 70, 68))
 
     # ---------- footer ----------
-    foot = ("Abu Dhabi talks open today \u2014 Iran vows \u201cevery means\u201d "
-            "\u2014 Kyiv grid hit again \u2014 Alcaraz wins \u2014 Brent "
-            "$92.00  |  Sources: Reuters, AP, AFP, BBC, Al Jazeera, "
-            "Guardian, wire services.")
+    foot = ("Abu Dhabi talks end, no deal \u2014 Netanyahu urges new Iran "
+            "strikes \u2014 Zaporizhzhia hit overnight \u2014 Gukesh\u2013"
+            "Sindarov opens \u2014 Brent $86.70  |  Sources: Reuters, AP, "
+            "AFP, BBC, Al Jazeera, Guardian, wire services.")
     d.text((16, 1014), trunc(d, foot, False, 10, W - 32),
            font=font(False, 10), fill=GREY)
 

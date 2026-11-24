@@ -6,12 +6,17 @@
 
 The World Today — Tuesday 24 November 2026: a program that sums up the
 world news of Tuesday 24 November 2026 as a one-page newspaper front page
-(a 1024×1024 PNG). Lead stories: US-brokered Russia–Ukraine talks open in
-Abu Dhabi; Iran vows to use "every means" to break the US blockade as 14
-tankers mass at Kharg Island; Russia hits Kyiv's power grid again, leaving
-more than 500,000 in the dark; and Alcaraz wins his maiden ATP Finals
-title. 50 stories across 8 regions and 13 fields, every one dated
-24 November 2026.
+(a 1024×1024 PNG). Lead stories: the Abu Dhabi talks end without a
+breakthrough as US mediators head to Moscow and Dublin; Netanyahu urges
+Trump to authorise fresh strikes on Iran; a Russian strike hits
+Zaporizhzhia overnight, killing 2 and wounding 22; and the Gukesh–Sindarov
+world chess title match opens in Geneva. 50 stories across 8 regions and
+12 fields, every lead and grid story verified as a Tuesday 24 November
+2026 development. v2 (evening of 24 Nov) replaces the four v1 leads, which
+were wrongly dated — Alcaraz's ATP Finals win (22 Nov), the COP31 collapse
+(22 Nov), the Kyiv grid barrage (23 Nov) and Iran's "every means" vow
+(23 Nov) — and lists them in the poster's DATE CHECK box with their true
+dates.
 
 ## Run it
 
@@ -35,6 +40,9 @@ days. The output is deterministic — two runs produce byte-identical PNGs.
 ## Sources
 
 Reuters, AP, AFP, Al Jazeera, Guardian, UKMTO, BBC and wire pickups,
-checked on the morning of 24 November 2026. Every story happened, or was
-first reported, on Tuesday 24 November 2026. Illustrations are original
-flat-vector drawings, not photographs.
+checked on the evening of 24 November 2026. Every lead and grid story is
+a development first reported on Tuesday 24 November 2026; the "HOW THE
+WEEK UNFOLDED" strip is explicitly a recap of 21–24 November, and the
+DATE CHECK box lists big stories deliberately left out because they belong
+to earlier days. Illustrations are original flat-vector drawings, not
+photographs.
